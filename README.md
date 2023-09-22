@@ -1,16 +1,16 @@
 # thinkphp-jump
 
-适用于thinkphp6.0的跳转扩展
+适用于thinkphp6.0+的跳转扩展
 
 ## 安装
 
 ~~~php
-composer require xiaoyaor/thinkphp-jump
+composer require aircross/thinkphp-jump
 ~~~
 
 ## 用法示例
 
-使用 use \xiaoyaor\think\Jump; 
+使用 use \aircross\think\Jump; 
 
 在所需控制器内引用该扩展即可：
 ~~~php
@@ -19,13 +19,13 @@ namespace app\controller;
 
 class Index 
 {
-    use \xiaoyaor\think\Jump; 
+    use \aircross\think\Jump; 
     public function index()
     {
         //return $this->error('error');
         //return $this->success('success','index/index');
         //return $this->redirect('/admin/index/index');
-        return $this->result(['username' => 'xiaoyaor', 'sex' => '男']);  
+        return $this->result(['username' => 'aircross', 'sex' => '男']);  
     }
 }
 ~~~
@@ -125,7 +125,7 @@ abstract class BaseController
 
         return $v->failException(true)->check($data);
     }
-    use \xiaoyaor\think\Jump;
+    use \aircross\think\Jump;
 }
 
 ~~~
@@ -201,9 +201,9 @@ class Index extends \app\BaseController
          * @param  array $header 发送的Header信息
          */
         //一般用法
-        return $this->result(['username' => 'xiaoyaor', 'sex' => '男']);
+        return $this->result(['username' => 'aircross', 'sex' => '男']);
         //完整用法
-        //return $this->result($data=['username' => 'xiaoyaor', 'sex' => '男'], $code = 0, $msg = '', $type = '',  $header = []); 
+        //return $this->result($data=['username' => 'aircross', 'sex' => '男'], $code = 0, $msg = '', $type = '',  $header = []); 
     }
 }
 ~~~
