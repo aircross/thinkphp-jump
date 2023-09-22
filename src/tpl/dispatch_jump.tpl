@@ -1,53 +1,90 @@
-{__NOLAYOUT__}<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{:__('Warning')}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/assets/img/favicon.ico" />
-    <style type="text/css">
-        *{box-sizing:border-box;margin:0;padding:0;font-family:Lantinghei SC,Open Sans,Arial,Hiragino Sans GB,Microsoft YaHei,"微软雅黑",STHeiti,WenQuanYi Micro Hei,SimSun,sans-serif;-webkit-font-smoothing:antialiased}
-        body{padding:70px 0;background:#edf1f4;font-weight:400;font-size:1pc;-webkit-text-size-adjust:none;color:#333}
-        a{outline:0;color:#3498db;text-decoration:none;cursor:pointer}
-        .system-message{margin:20px 5%;padding:40px 20px;background:#fff;box-shadow:1px 1px 1px hsla(0,0%,39%,.1);text-align:center}
-        .system-message h1{margin:0;margin-bottom:9pt;color:#444;font-weight:400;font-size:40px}
-        .system-message .jump,.system-message .image{margin:20px 0;padding:0;padding:10px 0;font-weight:400}
-        .system-message .jump{font-size:14px}
-        .system-message .jump a{color:#333}
-        .system-message p{font-size:9pt;line-height:20px}
-        .system-message .btn{display:inline-block;margin-right:10px;width:138px;height:2pc;border:1px solid #44a0e8;border-radius:30px;color:#44a0e8;text-align:center;font-size:1pc;line-height:2pc;margin-bottom:5px;}
-        .success .btn{border-color:#69bf4e;color:#69bf4e}
+	<meta charset="UTF-8">
+	<title>{:lang('Warning')}</title>
+	<style>
+		body {margin:0;}
+		h1 {font-family:'Lato',sans-serif;font-weight:300;letter-spacing:2px;font-size:35px;}
+		p {color: #fff;font-size: 25px;}
+		.header {position:relative;text-align:center;background:linear-gradient(60deg,rgba(84,58,183,1) 0%,rgba(0,172,193,1) 100%);color:white;}
+		.inner-header {height:65vh;width:100%;margin:0;padding:0;}
+		.flex {display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
+		.waves {position:relative;width:100%;height:15vh;margin-bottom:-7px;min-height:100px;max-height:150px;}
+		.content {position:relative;height:20vh;text-align:center;background-color:white;}
+		.parallax > use {animation:move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;}
+		.parallax > use:nth-child(1) {animation-delay:-2s;animation-duration:7s;}
+		.parallax > use:nth-child(2) {animation-delay:-3s;animation-duration:10s;}
+		.parallax > use:nth-child(3) {animation-delay:-4s;animation-duration:13s;}
+		.parallax > use:nth-child(4) {animation-delay:-5s;animation-duration:20s;}
+		@keyframes move-forever {0% {transform:translate3d(-90px,0,0);}
+		100% {transform:translate3d(85px,0,0);}
+		}
+		@media (max-width:768px) {.waves {height:40px;min-height:40px;}
+		.content {height:30vh;}
+		h1 {font-size:24px;}
+		}
+		#UrlId {color:skyblue;border-color:skyblue;}
+		.success .btn{border-color:#69bf4e;color:#69bf4e}
         .error .btn{border-color:#ff8992;color:#ff8992}
         .info .btn{border-color:#3498db;color:#3498db}
-        .copyright p{width:100%;color:#919191;text-align:center;font-size:10px}
-        .system-message .btn-grey{border-color:#bbb;color:#bbb}
-        .clearfix:after{clear:both;display:block;visibility:hidden;height:0;content:"."}
-        @media (max-width:768px){body {padding:20px 0;}}
-            @media (max-width:480px){.system-message h1{font-size:30px;}}
-    </style>
+		.btn-grey{border-color:#bbb;color:#bbb}
+        .emojimage{margin:20px 0;padding:0;padding:10px 0;font-weight:400}
+	</style>
 </head>
 <body>
-{php}$codeText=$code == 1 ? 'success' : ($code == 0 ? 'error' : 'info');{/php}
-<div class="system-message {$codeText}">
-    <div class="image">
-        <img src="/assets/img/{$codeText}.svg" alt="" width="150" />
-    </div>
-    <h1>{$msg}</h1>
-    {if $url}
-        <p class="jump">
-            {:__('This page will be re-directed in %s seconds', '<span id="wait">' . $wait . '</span>')}
-        </p>
-    {/if}
-    <p class="clearfix">
-        <a href="/" class="btn btn-grey">{:__('Go back')}</a>
-        {if $url}
-            <a href="{$url}" class="btn btn-primary">{:__('Jump now')}</a>
-        {/if}
-    </p>
-</div>
-<div class="copyright">
-    <p>Powered by <a href="https://www.easyadmin.vip/?ref=jump">EasyAdmin</a></p>
-</div>
+	{php}$codeText=$code == 1 ? 'success' : ($code == 0 ? 'error' : 'info');{/php}
+	<div class="header">
+		<div class="inner-header flex">
+            <div class="emojimage">
+                <img src="/static/thinkphp-jump/img/{$codeText}.svg" alt="" width="150" />
+            </div>
+			<h1>{$msg}</h1>
+			{if $url}<p>{:lang('This page will be re-directed in %s seconds', ['<span id="wait">' . $wait . '</span>'])}</p>{/if}
+			<a href="/" class="btn btn-grey">{:lang('Go back')}</a>
+			{if $url}
+				<a href="{$url}" class="btn btn-primary" id="UrlId">{:lang('Jump now')}</a>
+			{/if}
+		</div>
+
+		<!-- 背景 -->
+		<div>
+			<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+				<defs>
+					<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+				</defs>
+				<g class="parallax">
+					<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+					<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+					<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+					<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+				</g>
+			</svg>
+		</div>
+
+	</div>
+</body>
+</html>
+<!-- < script>
+	// 获取当前url地址
+	var url = window.location.href;
+	// 截取传递的url参数
+	url = url.match(/url=(\S*)/)[1];
+	document.getElementById("UrlId").href = url;
+	// 获取秒数显示id
+	var seconds = document.getElementById("seconds");
+	// 设置秒数
+    var num = 3;
+    var timer = setInterval(function () {
+        num--;
+        seconds.innerText = num;
+        if(num == 0){
+            window.location.href = url;
+        }
+    },1000)
+< /script> -->
+
 {if $url}
     <script type="text/javascript">
         (function () {
@@ -62,5 +99,3 @@
         })();
     </script>
 {/if}
-</body>
-</html>
