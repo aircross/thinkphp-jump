@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: xiaoyaor
- * Date: 2019/5/23
- * Time: 22:43
+ * User: aircross
+ * Date: 2023/9/22
+ * Time: 15:43
  */
 
-namespace xiaoyaor\think;
+namespace aircross\think;
 use think\facade\Config;
 use think\exception\HttpResponseException;
 use think\Response;
