@@ -7,6 +7,7 @@
  */
 
 namespace aircross\think;
+use think\App;
 use think\facade\Config;
 use think\exception\HttpResponseException;
 use think\Response;
