@@ -15,10 +15,27 @@ use think\facade\View;
 trait Jump
 {
     /**
+     * Request实例
+     * @var \think\Request
+     */
+    protected $request;
+
+    /**
      * 应用实例
      * @var \think\App
      */
     protected $app;
+
+    /**
+     * 构造方法
+     * @access public
+     * @param  App  $app  应用对象
+     */
+    public function __construct(App $app)
+    {
+        $this->app     = $app;
+        $this->request = $this->app->request;
+    }
     /**
      * 操作成功跳转的快捷方法
      * @access protected
@@ -46,13 +63,10 @@ trait Jump
         ];
 
         $type = $this->getResponseType();
-
         $jump_template=$this->app['config']->get('jump.dispatch_success_tmpl');
+        // 把跳转模板的渲染下沉，这样在 response_send 行为里通过getData()获得的数据是一致性的格式
         if ('html' == strtolower($type)) {
             $result = View::fetch($jump_template, $result);
-        }
-
-        if ($type == 'html'){
             $response = Response::create($result, $type)->header($header)->options(['jump_template' => $jump_template]);
         } else if ($type == 'json') {
             $response = json($result);
