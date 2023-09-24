@@ -165,6 +165,7 @@ trait Jump
      */
     protected function getResponseType()
     {
-        return $this->request->isJson() || $this->request->isAjax() ? Config::get('app.default_ajax_return') : Config::get('app.default_return_type');
+        // return $this->request->isJson() || $this->request->isAjax() ? Config::get('app.default_ajax_return') : Config::get('app.default_return_type');
+        return $this->request->isJson() || $this->request->isAjax() ? 'json' : 'html';
     }
 }
