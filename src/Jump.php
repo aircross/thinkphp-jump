@@ -51,7 +51,7 @@ trait Jump
         if (is_null($url) && isset($_SERVER["HTTP_REFERER"])) {
             $url = $_SERVER["HTTP_REFERER"];
         } elseif ($url) {
-            $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : $this->app->route->buildUrl($url)->build();
+            $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : (string)$this->app->route->buildUrl($url);
         }
 
         $result = [
@@ -90,7 +90,7 @@ trait Jump
         if (is_null($url)) {
             $url = $this->request->isAjax() ? '' : 'javascript:history.back(-1);';
         } elseif ($url) {
-            $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : $this->app->route->buildUrl($url);
+            $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : (string)$this->app->route->buildUrl($url);
         }
 
         $result = [
