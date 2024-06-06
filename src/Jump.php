@@ -109,7 +109,8 @@ trait Jump
         }
 
         if ($type == 'view'){
-            $response = Response::create($this->app->config->get('jump.dispatch_error_tmpl'), $type)->assign($result)->header($header);
+            $response = Response::create(\think\facade\Config::get('jump.dispatch_error_tmpl'), $type)->assign($result)->header($header);
+            // $response = Response::create($this->app->config->get('jump.dispatch_error_tmpl'), $type)->assign($result)->header($header);
         } else if ($type == 'json') {
             $response = json($result);
         }
